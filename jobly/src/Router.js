@@ -7,6 +7,7 @@ import NotFound from './Components/NotFound';
 import Login from './Components/Login';
 import SignupForm from './Components/SignupForm';
 import Profile from './Components/Profile';
+import Company from './Components/Company';
 
 
 const Router = () => {
@@ -20,7 +21,7 @@ const Router = () => {
         <Route path='/companies' element={<CompaniesList />}></Route>
 
         {/* /companies/apple : View details of this company */}
-        {/* <Route path='/companies/:id' element={<Company />}></Route> */}
+        <Route path='/companies/:id' element={<Company />}></Route>
 
         {/* /jobs : List all jobs */}
         <Route path='/jobs' element={<JobsList />}></Route>
