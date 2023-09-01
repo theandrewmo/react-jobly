@@ -25,7 +25,7 @@ const Company = () => {
     return (
         <>
             <h1>Company</h1>
-            <p>Loading...</p>;
+            <p>Loading...</p>
         </>
     )
   }

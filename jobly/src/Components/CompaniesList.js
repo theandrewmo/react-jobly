@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
  * 
  * props: 
  * 
- * state: 
+ * state: companies, inputData
  * 
  */
 
@@ -22,15 +22,6 @@ const CompaniesList = () => {
         }
         getCompanies();
     }, [])
-
-    // const refreshData = async () => {
-    //     try {
-    //         const companiesData = await JoblyApi.getAllCompanies();
-    //         setCompanies(companiesData)
-    //     } catch (e) {
-    //         console.error("error refreshing data", e);
-    //     }
-    // }
 
     const handleChange = (e) => {
         const {value} = e.target
@@ -48,6 +39,12 @@ const CompaniesList = () => {
         setCompanies(matchedCompanies);
     }
 
+    if (!companies) return (
+        <>
+        <p>Loading ...</p>
+        </>
+    )
+
     return (
         <>
         <form onSubmit={handleSubmit}>
@@ -55,7 +52,7 @@ const CompaniesList = () => {
             <input type='text' name='company' onChange={handleChange}></input>
             <button>Submit</button>
         </form>
-        <h1> Companies List here </h1>
+        <h1> Companies List </h1>
         {companies.map(company => (<Link key={company.handle} to={`/companies/${company.handle}`}><p>{company.name}</p></Link>))}
         </>
     )

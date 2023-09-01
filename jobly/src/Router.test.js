@@ -1,9 +1,8 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { render, screen } from '@testing-library/react';
+import { MemoryRouter} from 'react-router-dom';
 import Router from './Router';
 import '@testing-library/jest-dom/extend-expect';
-import Company from './Components/Company'
 
 describe('Router component', () => {
   it('renders the homepage when the path is /', () => {
@@ -22,7 +21,7 @@ describe('Router component', () => {
         <Router />
       </MemoryRouter>
     );
-    const companiesList = screen.getByText('Companies List here');
+    const companiesList = screen.getByText('Companies List');
     expect(companiesList).toBeInTheDocument();
   });
   
