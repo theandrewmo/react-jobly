@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router";
+import JoblyApi from "../api";
+import Job from "./Job";
 
 /** Company
  * 
@@ -9,12 +12,24 @@ import React from "react";
  */
 
 const Company = () => {
+
+    const {handle} = useParams();
+    const [company, setCompany] = useState([]);
+
+    useEffect(()=> {
+        async function getOneCompany() {
+            const foundCompany = await JoblyApi.getCompany(handle);
+            setCompany(foundCompany);
+        }
+        getOneCompany();
+    }, [])
+
     return (
-
         <>
-        Company Details Page
-
-        <p>Jobs at this company....</p>
+        {company.name}
+        {company.jobs?.map(
+            (job) => (<Job key={job.id} job={job}></Job>))
+        }
         </>
     )
 }

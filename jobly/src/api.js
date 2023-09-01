@@ -43,9 +43,37 @@ class JoblyApi {
     return res.company;
   }
 
-  static async getAllCompanies() {
-    let res = await this.request(`companies`);
+  /** Get details on all companies with optional query params */
+
+  static async getAllCompanies(queryParams) {
+    let url = "companies";
+  
+    if (queryParams) {
+      // Convert the queryParams object into a URL query string
+      const queryString = Object.keys(queryParams)
+        .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(queryParams[key])}`)
+        .join("&");
+  
+      // Append the query string to the URL
+      url += `?${queryString}`;
+    }
+  
+    let res = await this.request(url);
     return res.companies;
+  }
+
+  /** Get details on a job by id */
+
+  static async getJob(id) {
+    let res = await this.request(`jobs/${id}`);
+    return res.job;
+  }
+
+  /** Get details on all jobs */
+
+  static async getAllJobs() {
+    let res = await this.request(`jobs`);
+    return res.jobs;
   }
 }
 

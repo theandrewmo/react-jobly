@@ -1,38 +1,63 @@
 import React, { useState, useEffect } from "react";
 import JoblyApi from '../api';
+import { Link } from "react-router-dom";
 
 /** CompaniesList
  * 
  * props: 
  * 
- * state:
+ * state: 
  * 
  */
 
 const CompaniesList = () => {
 
     const [companies, setCompanies] = useState([]);
-    console.log('hi')
+    const [inputData, setInputData] = useState('');
 
     useEffect(()=> {
         async function getCompanies() {
             const companies = await JoblyApi.getAllCompanies();
             setCompanies(companies);
-            console.log(companies);
         }
         getCompanies();
+        console.log('fired effect')
     }, [])
 
+    // const refreshData = async () => {
+    //     try {
+    //         const companiesData = await JoblyApi.getAllCompanies();
+    //         setCompanies(companiesData)
+    //     } catch (e) {
+    //         console.error("error refreshing data", e);
+    //     }
+    // }
 
+    const handleChange = (e) => {
+        const {value} = e.target
+        setInputData(value)
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        let queryParams = {};
+
+        if (inputData.trim() !== "") {
+          queryParams = { name: inputData };
+        }
+        const matchedCompanies = await JoblyApi.getAllCompanies(queryParams);
+        setCompanies(matchedCompanies);
+    }
 
     return (
         <>
-
-        <p>Search Box - Filter companies using backend here</p>
-
-        Companies List here
-        {companies.map(company => (<p>{company.name}</p>))}
-
+        <form onSubmit={handleSubmit}>
+            <label htmlFor="company">Search for Company:</label>
+            <input type='text' name='company' onChange={handleChange}></input>
+            <button>Submit</button>
+        </form>
+        <h1> Companies List here </h1>
+        {companies.map(company => (<Link key={company.handle} to={`/companies/${company.handle}`}><p>{company.name}</p></Link>))}
         </>
     )
 }
