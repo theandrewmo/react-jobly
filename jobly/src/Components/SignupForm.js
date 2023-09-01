@@ -11,7 +11,7 @@ import React from "react";
 const SignupForm = () => {
     return (
         <>
-        SignupForm here
+        Signup Form here
         </>
     )
 }

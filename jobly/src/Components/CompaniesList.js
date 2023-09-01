@@ -21,7 +21,6 @@ const CompaniesList = () => {
             setCompanies(companies);
         }
         getCompanies();
-        console.log('fired effect')
     }, [])
 
     // const refreshData = async () => {

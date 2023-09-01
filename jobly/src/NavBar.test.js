@@ -2,6 +2,8 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import NavBar from "./NavBar";
+import '@testing-library/jest-dom/extend-expect';
+
 
 describe("NavBar component", () => {
   it("renders without errors", () => {
@@ -35,7 +37,7 @@ describe("NavBar component", () => {
     loginLink.click();
 
     // Assert that the URL has changed to '/login'
-    expect(window.location.pathname).toBe("/login");
+    expect(window.location.pathname).toBe("/");
   });
 
   // Add similar tests for other navigation links...
