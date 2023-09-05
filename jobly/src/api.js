@@ -15,7 +15,7 @@ class JoblyApi {
   static token;
 
   static async request(endpoint, data = {}, method = "get") {
-    console.debug("API Call:", endpoint, data, method);
+    // console.debug("API Call:", endpoint, data, method);
 
     //there are multiple ways to pass an authorization token, this is how you pass it in the header.
     //this has been provided to show you another way to pass the token. you are only expected to read this code for this project.
@@ -28,9 +28,11 @@ class JoblyApi {
     try {
       return (await axios({ url, method, data, params, headers })).data;
     } catch (err) {
-      console.error("API Error:", err.response);
-      let message = err.response.data.error.message;
-      throw Array.isArray(message) ? message : [message];
+      // console.error("API Error:", err.response);
+      const message = err.response.data.error.message;
+      // throw Array.isArray(message) ? message : [message];
+      // Return an object with the error message
+      return { error: message };
     }
   }
 
@@ -75,7 +77,64 @@ class JoblyApi {
     let res = await this.request(`jobs`);
     return res.jobs;
   }
+
+  /** Register user */
+
+  static async register(username, password, firstName, lastName, email) {
+    let res = await this.request(`auth/register`, {
+        username,
+        password,
+        firstName,
+        lastName,
+        email
+      }, 'POST');
+    // Check for an error property in the result
+    if (res.error) {
+      // Handle the error, e.g., return it or throw an error
+      return { error: res.error };
+    }
+    // Return the user token
+    return res.token;
+  }
+
+  /** Login user - get token */
+
+  static async getUserToken(username, password) {
+    let res = await this.request(`auth/token`, {
+      username,
+      password
+      }, 'POST');
+    // Check for an error property in the result
+    if (res.error) {
+      // Handle the error, e.g., return it or throw an error
+      return { error: res.error };
+    }
+    // Return the user token
+    return res.token;
+  }
+
+  /** Get details on a user */
+
+  static async getUserDetails(username) {
+      const headers = {
+        Authorization: `Bearer ${JoblyApi.token}`, 
+      }
+      let res = await this.request(`users/${username}`, {}, 'get', headers);
+      // Check for an error property in the result
+      if (res.error) {
+        // Handle the error, e.g., return it or throw an error
+        return { error: res.error };
+      }
+      // Return the user
+      return res.user;
+  }
+
+  static setToken(token) {
+    JoblyApi.token = token;
 }
+}
+
+
 
 // for now, put token ("testuser" / "password" on class)
 JoblyApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +

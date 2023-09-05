@@ -1,4 +1,5 @@
-import React from "react"
+import React from "react";
+import { useUserContext } from "../UserContext";
 
 /** Profile
  * 
@@ -9,10 +10,16 @@ import React from "react"
  */
 
 const Profile = () => {
-    return (
 
+    const { currentUser } = useUserContext();
+    return (
+        
         <>
-        Profile Page
+        <h2>Profile Page</h2>
+        <p>{currentUser.username}</p>
+        <p>{currentUser.firstName}</p>
+        <p>{currentUser.lastName}</p>
+        <p>{currentUser.email}</p>
         </>
     )
 }

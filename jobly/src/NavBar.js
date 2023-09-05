@@ -1,9 +1,13 @@
 import React from "react";
 import { NavLink } from 'react-router-dom';
 import { Navbar, Nav, NavItem } from 'reactstrap';
+import { useUserContext } from "./UserContext";
 
 
-const NavBar = () => {
+const NavBar = ( {token} ) => {
+
+    const { currentUser } = useUserContext(); 
+
     return (
         <>
             <Navbar expand='md'>
@@ -11,12 +15,17 @@ const NavBar = () => {
                     Jobly
                 </NavLink>
                 <Nav className='ml-auto' navbar>
-                    <NavItem>
-                        <NavLink to='/login'>Login</NavLink>
-                    </NavItem>
-                    <NavItem>
-                        <NavLink to='/signup'>Signup</NavLink>
-                    </NavItem>
+                {!currentUser ? (
+                    <>
+                        <NavItem>
+                            <NavLink to='/login'>Login</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink to='/signup'>Signup</NavLink>
+                        </NavItem>
+                    </>    
+                ) : (
+                    <>
                     <NavItem>
                         <NavLink to='/companies'>Companies</NavLink>
                     </NavItem>
@@ -26,6 +35,11 @@ const NavBar = () => {
                     <NavItem>
                         <NavLink to='/profile'>Profile</NavLink>
                     </NavItem>
+                    <NavItem>
+                        <NavLink to='/logout'>Logout</NavLink>
+                    </NavItem>
+                    </>
+                )}
                 </Nav>
             </Navbar>
         </>

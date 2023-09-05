@@ -8,9 +8,9 @@ import Login from './Components/Login';
 import SignupForm from './Components/SignupForm';
 import Profile from './Components/Profile';
 import Company from './Components/Company';
+import Logout from './Components/Logout';
 
-
-const Router = () => {
+const Router = ( {login, logout, signup} ) => {
     return (
     <> 
     <Routes>
@@ -27,13 +27,16 @@ const Router = () => {
         <Route path='/jobs' element={<JobsList />}></Route>
 
         {/* /login : Login/signup */}
-        <Route path='/login' element={<Login />}></Route>
+        <Route path='/login' element={<Login login={login}/>}></Route>
 
         {/* /signup : Signup form */}
-        <Route path='/signup' element={<SignupForm />}></Route>
+        <Route path='/signup' element={<SignupForm signup={signup}/>}></Route>
 
         {/* /profile : Edit profile page */}
         <Route path='/profile' element={<Profile />}></Route>
+
+        {/* /logout : Logout page */}
+        <Route path='/logout' element={<Logout logout={logout} />}></Route>
 
         {/* 404 error */}
         <Route path='/*' element={<NotFound />} />

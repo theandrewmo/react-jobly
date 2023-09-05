@@ -37,6 +37,7 @@ const CompaniesList = () => {
         }
         const matchedCompanies = await JoblyApi.getAllCompanies(queryParams);
         setCompanies(matchedCompanies);
+        setInputData('');
     }
 
     if (!companies) return (
@@ -49,7 +50,7 @@ const CompaniesList = () => {
         <>
         <form onSubmit={handleSubmit}>
             <label htmlFor="company">Search for Company:</label>
-            <input type='text' name='company' onChange={handleChange}></input>
+            <input type='text' name='company' onChange={handleChange} value={inputData}></input>
             <button>Submit</button>
         </form>
         <h1> Companies List </h1>
