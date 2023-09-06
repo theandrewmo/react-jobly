@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import JoblyApi from '../api';
 import { Link } from "react-router-dom";
+import { useUserContext } from "../UserContext";
+import { useNavigate } from "react-router";
 
 /** CompaniesList
  * 
@@ -14,6 +16,17 @@ const CompaniesList = () => {
 
     const [companies, setCompanies] = useState([]);
     const [inputData, setInputData] = useState('');
+
+    const { currentUser } = useUserContext();
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      // Check if currentUser is null and navigate to the homepage if it is
+      if (currentUser === null) {
+        navigate("/");
+      }
+    }, [currentUser, navigate]);
 
     useEffect(()=> {
         async function getCompanies() {
