@@ -1,11 +1,11 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { UserProvider } from '../UserContext';
-import Login from './Login';
+import Logout from './Logout';
 import { MemoryRouter } from 'react-router-dom'; 
 
 
-test('Login renders without crashing', () => {
+test('Logout renders without crashing', () => {
   // Create a mock context value that matches context structure
   const contextValue = {
     currentUser: { /* user data here */ },
@@ -18,7 +18,7 @@ test('Login renders without crashing', () => {
   const { container } = render(
     <MemoryRouter>
       <UserProvider value={contextValue}>
-          <Login />
+          <Logout logout={()=> {}}/>
         </UserProvider>
     </MemoryRouter>
     

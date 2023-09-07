@@ -6,6 +6,7 @@ import NavBar from './NavBar';
 import JoblyApi from './api';
 import jwtDecode from 'jwt-decode';
 import { useUserContext } from './UserContext';
+import Job from './Components/Job';
 
 /** App
  * 
@@ -45,6 +46,15 @@ function App() {
     return 'success';
   }
 
+  const edit = async (username, password, firstName, lastName, email) => {
+    const result = await JoblyApi.editUser( username, password, firstName, lastName, email);
+    if (result.error) {
+      return {error: result.error}
+    }
+    setCurrentUser(result);
+    return 'success';
+  }
+
   useEffect(()=> {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
@@ -72,7 +82,7 @@ function App() {
     <div className="App">
         <BrowserRouter>
             <NavBar />
-            <Router login={login} logout={logout} signup={signup}/>
+            <Router login={login} logout={logout} signup={signup} edit={edit}/>
         </BrowserRouter>
     </div>
   );

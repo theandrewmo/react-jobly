@@ -97,6 +97,24 @@ class JoblyApi {
     return res.token;
   }
 
+  /** Edit user */
+
+  static async editUser(username, password, firstName, lastName, email) {
+    let res = await this.request(`users/${username}`, {
+        password,
+        firstName,
+        lastName,
+        email
+      }, 'PATCH');
+    // Check for an error property in the result
+    if (res.error) {
+      // Handle the error, e.g., return it or throw an error
+      return { error: res.error };
+    }
+    // Return the user
+    return res.user;
+  }
+
   /** Login user - get token */
 
   static async getUserToken(username, password) {

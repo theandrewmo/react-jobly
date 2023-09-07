@@ -23,10 +23,10 @@ const CompaniesList = () => {
 
     useEffect(() => {
       // Check if currentUser is null and navigate to the homepage if it is
-      if (currentUser === null) {
+      if (!currentUser) {
         navigate("/");
       }
-    }, [currentUser, navigate]);
+    }, [currentUser]);
 
     useEffect(()=> {
         async function getCompanies() {

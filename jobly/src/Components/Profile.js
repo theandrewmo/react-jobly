@@ -18,11 +18,18 @@ const Profile = () => {
 
     useEffect(() => {
       // Check if currentUser is null and navigate to the homepage if it is
-      if (currentUser === null) {
+      if (!currentUser) {
         navigate("/");
       }
     }, [currentUser, navigate]);
     
+
+    if (!currentUser) return (
+      <>
+      <p>Loading ...</p>
+      </>
+    )
+
     return (
     <>
       <h2>Profile Page</h2>
@@ -30,6 +37,7 @@ const Profile = () => {
       <p>{currentUser.firstName}</p>
       <p>{currentUser.lastName}</p>
       <p>{currentUser.email}</p>
+      <button onClick={()=> navigate('/profile/edit')}>Edit</button>
     </>
   )    
 }

@@ -1,12 +1,12 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Homepage from './Homepage';
+import EditProfile from './EditProfile';
 import { UserProvider } from '../UserContext'; 
 import { MemoryRouter } from 'react-router-dom';
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom/extend-expect'; 
 
 
-test('renders Homepage without errors', () => {
+test('renders EditProfile without errors', () => {
   // Create a mock context value that matches context structure
   const contextValue = {
     currentUser: null,
@@ -18,13 +18,13 @@ test('renders Homepage without errors', () => {
   const { getByText, toBeInTheDocument } = render(
     <MemoryRouter>
       <UserProvider value={contextValue}>
-        <Homepage />
+        <EditProfile />
       </UserProvider>
     </MemoryRouter>
     
   );
 
-  // assertions here to check for specific elements or content in the rendered Homepage component
-  const homepageElement = getByText(/Homepage/); 
-  expect(homepageElement).toBeInTheDocument();
+  // assertions here to check for specific elements or content in the rendered EditProfile component
+  const loadingElement = getByText(/Loading/);
+  expect(loadingElement).toBeInTheDocument();
 });

@@ -9,8 +9,9 @@ import SignupForm from './Components/SignupForm';
 import Profile from './Components/Profile';
 import Company from './Components/Company';
 import Logout from './Components/Logout';
+import EditProfile from './Components/EditProfile';
 
-const Router = ( {login, logout, signup} ) => {
+const Router = ( {login, logout, signup, edit} ) => {
     return (
     <> 
     <Routes>
@@ -32,8 +33,11 @@ const Router = ( {login, logout, signup} ) => {
         {/* /signup : Signup form */}
         <Route path='/signup' element={<SignupForm signup={signup}/>}></Route>
 
-        {/* /profile : Edit profile page */}
+        {/* /profile : Profile page */}
         <Route path='/profile' element={<Profile />}></Route>
+
+        {/* /profile : Edit profile page */}
+        <Route path='/profile/edit' element={<EditProfile edit={edit}/>}></Route>
 
         {/* /logout : Logout page */}
         <Route path='/logout' element={<Logout logout={logout} />}></Route>
