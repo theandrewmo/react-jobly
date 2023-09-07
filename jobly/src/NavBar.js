@@ -4,7 +4,7 @@ import { Navbar, Nav, NavItem } from 'reactstrap';
 import { useUserContext } from "./UserContext";
 
 
-const NavBar = ( {token} ) => {
+const NavBar = () => {
 
     const { currentUser } = useUserContext(); 
 

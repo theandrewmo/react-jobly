@@ -7,24 +7,31 @@ import JoblyApi from './api';
 import jwtDecode from 'jwt-decode';
 import { useUserContext } from './UserContext';
 
+/** App
+ * 
+ * props: none
+ * 
+ * state: none
+ * 
+ */
+
 function App() {
 
-  const [token, setToken] = useState('');
-
-  // Use the useUserContext hook to access the context and setCurrentUser
-  const { setCurrentUser } = useUserContext();
+  const { currentUser, setCurrentUser, token, setToken } = useUserContext();
 
   const login = async (username, password) => {
       const result = await JoblyApi.getUserToken(username, password);
       if (result.error) {
         return {error: result.error}
       }
+      localStorage.setItem('token', result);
       setToken(result);
       return 'success';
   }
 
   const logout = () => {
-    setToken('');
+    localStorage.removeItem('token');
+    setToken(null);
     setCurrentUser(null);
   }
 
@@ -33,35 +40,39 @@ function App() {
     if (result.error) {
       return {error: result.error}
     }
+    localStorage.setItem('token', result);
     setToken(result);
     return 'success';
   }
 
   useEffect(()=> {
-    async function fetchUserDetails () {
+    const storedToken = localStorage.getItem('token');
+    if (storedToken) {
+      const decodedToken = jwtDecode(storedToken);
+      const username = decodedToken.username;
+
+    // Set the token in the JoblyApi class before making the request
+    JoblyApi.setToken(storedToken);
+
+    const fetchUserDetails =  async () => {
       try {
-        if (token) {
-          const decodedToken = jwtDecode(token);
-          const username = decodedToken.username;
-
-          // Set the token in the JoblyApi class before making the request
-          JoblyApi.setToken(token);
-
-          const user = await JoblyApi.getUserDetails(username);
-          setCurrentUser(user);
-        }
-      } catch(e) {
-        console.error(e);
-      }
+            if (storedToken) {
+              const user = await JoblyApi.getUserDetails(username);
+              setCurrentUser(user);
+            }
+          } catch(e) {
+              console.error(e);
+            }
     }
     fetchUserDetails(); 
+    }
   }, [token])
 
   return (
     <div className="App">
         <BrowserRouter>
-            <NavBar token={token} />
-            <Router token={token} login={login} logout={logout} signup={signup}/>
+            <NavBar />
+            <Router login={login} logout={logout} signup={signup}/>
         </BrowserRouter>
     </div>
   );

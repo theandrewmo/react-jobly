@@ -1,4 +1,6 @@
-import React, { createContext, useContext, useState } from 'react';
+/** UserContext */
+
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const UserContext = createContext();
 
@@ -8,11 +10,24 @@ export function useUserContext() {
 
 export function UserProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem('token') || null);
 
-  // You can include any other user-related state or functions here
+  useEffect(()=> {
+    const storedToken = localStorage.getItem('token');
+    if (storedToken) {
+      setToken(storedToken);
+    }
+  }, [])
+
+  const value = {
+    currentUser, 
+    setCurrentUser, 
+    token, 
+    setToken
+  }
 
   return (
-    <UserContext.Provider value={{ currentUser, setCurrentUser }}>
+    <UserContext.Provider value={value}>
       {children}
     </UserContext.Provider>
   );
