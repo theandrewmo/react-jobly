@@ -134,10 +134,7 @@ class JoblyApi {
   /** Get details on a user */
 
   static async getUserDetails(username) {
-      const headers = {
-        Authorization: `Bearer ${JoblyApi.token}`, 
-      }
-      let res = await this.request(`users/${username}`, {}, 'get', headers);
+      let res = await this.request(`users/${username}`, {}, 'get');
       // Check for an error property in the result
       if (res.error) {
         // Handle the error, e.g., return it or throw an error
@@ -146,6 +143,20 @@ class JoblyApi {
       // Return the user
       return res.user;
   }
+
+   /** Apply for a job */
+
+   static async applyToJob(username, jobId) {
+    let res = await this.request(`users/${username}/jobs/${jobId}`, {}, 'post');
+    // Check for an error property in the result
+    if (res.error) {
+      // Handle the error, e.g., return it or throw an error
+      return { error: res.error };
+    }
+    else if (res.body === {"applied": jobId}) console.log('matched')
+    // Return the response object
+    return res;
+}
 
   static setToken(token) {
     JoblyApi.token = token;

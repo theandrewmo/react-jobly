@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect} from "react";
 import { useNavigate } from "react-router";
 
 /** Logout
@@ -14,7 +14,7 @@ const Logout = ( {logout} ) => {
     const navigate = useNavigate();
 
     useEffect(()=> {
-        const handleLogout = async () => {
+        const doLogOut = async () => {
             try {
                 await logout();
                 navigate('/login');
@@ -22,9 +22,10 @@ const Logout = ( {logout} ) => {
                 console.error(e);
             }
         }
-        handleLogout();
-    },[])
-
+        doLogOut();
+    }, []);
+    
+      
     return (
         <>
             <h2>logging out...</h2>      

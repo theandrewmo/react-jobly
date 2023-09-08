@@ -12,7 +12,7 @@ const Homepage = () => {
     return (
 
         <>
-        This is the Homepage
+        <h1>Jobly</h1>
         </>
     )
 }

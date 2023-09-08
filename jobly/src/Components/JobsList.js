@@ -6,13 +6,13 @@ import { useNavigate } from "react-router";
 
 /** JobsList
  * 
- * props: 
+ * props: apply
  * 
  * state:
  * 
  */
 
-const JobsList = () => {
+const JobsList = ( {apply} ) => {
 
     const [jobs, setJobs] = useState([]);
 
@@ -20,13 +20,8 @@ const JobsList = () => {
 
     const navigate = useNavigate();
 
-    useEffect(() => {
-      // Check if currentUser is null and navigate to the homepage if it is
-      if (currentUser === null) {
-        navigate("/");
-      }
-    }, [currentUser, navigate]);
-    
+    if (currentUser === null) navigate("/");
+   
     useEffect(()=> {
         async function getJobs() {
             const allJobs = await JoblyApi.getAllJobs();
@@ -39,7 +34,7 @@ const JobsList = () => {
         <>
         Jobs List here
         {jobs.map(
-            (job) => (<Job key={job.id} job={job}/>))}
+            (job) => (<Job key={job.id} job={job} apply={apply}/>))}
         </>
     )
 }

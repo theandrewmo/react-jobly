@@ -13,7 +13,7 @@ import JoblyApi from "../api";
 
 const EditProfile = ( {edit} ) => {
 
-    const { currentUser } = useUserContext();
+    const { currentUser, setCurrentUser } = useUserContext();
 
     const navigate = useNavigate();
 
@@ -50,7 +50,8 @@ const EditProfile = ( {edit} ) => {
             alert(result.error)
         }
         else {
-            alert('success')
+            const updatedUser = await JoblyApi.getUserDetails(currentUser.username);
+            setCurrentUser(updatedUser);
             setPasswordInput('');
             setFirstNameInput('');
             setLastNameInput('');
@@ -64,7 +65,7 @@ const EditProfile = ( {edit} ) => {
       if (!currentUser) {
         navigate("/profile");
       }
-    }, [currentUser, navigate]);
+    }, []);
     
 
     if (!currentUser) return (

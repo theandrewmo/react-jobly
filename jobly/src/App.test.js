@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { MemoryRouter } from 'react-router-dom'; // Import MemoryRouter
-import { UserProvider } from './UserContext'; // Import your UserProvider here
+import { MemoryRouter } from 'react-router-dom'; 
+import { UserProvider } from './UserContext'; 
 import App from './App';
 
 it('renders without crashing', function() {

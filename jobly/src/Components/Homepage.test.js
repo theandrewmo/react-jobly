@@ -25,6 +25,6 @@ test('renders Homepage without errors', () => {
   );
 
   // assertions here to check for specific elements or content in the rendered Homepage component
-  const homepageElement = getByText(/Homepage/); 
+  const homepageElement = getByText(/Jobly/); 
   expect(homepageElement).toBeInTheDocument();
 });

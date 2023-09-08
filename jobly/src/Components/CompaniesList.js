@@ -6,7 +6,7 @@ import { useNavigate } from "react-router";
 
 /** CompaniesList
  * 
- * props: 
+ * props:
  * 
  * state: companies, inputData
  * 
@@ -21,17 +21,13 @@ const CompaniesList = () => {
 
     const navigate = useNavigate();
 
-    useEffect(() => {
-      // Check if currentUser is null and navigate to the homepage if it is
-      if (!currentUser) {
-        navigate("/");
-      }
-    }, [currentUser]);
+    if (!currentUser)  navigate("/");
 
     useEffect(()=> {
         async function getCompanies() {
             const companies = await JoblyApi.getAllCompanies();
-            setCompanies(companies);
+            if (companies) setCompanies(companies);
+            else console.error('no companies found')
         }
         getCompanies();
     }, [])
@@ -48,8 +44,12 @@ const CompaniesList = () => {
         if (inputData.trim() !== "") {
           queryParams = { name: inputData };
         }
-        const matchedCompanies = await JoblyApi.getAllCompanies(queryParams);
-        setCompanies(matchedCompanies);
+        try {
+            const matchedCompanies = await JoblyApi.getAllCompanies(queryParams);
+            setCompanies(matchedCompanies);
+        } catch(e) {
+            console.error(e);
+        }
         setInputData('');
     }
 

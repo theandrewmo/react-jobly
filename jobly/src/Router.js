@@ -11,7 +11,8 @@ import Company from './Components/Company';
 import Logout from './Components/Logout';
 import EditProfile from './Components/EditProfile';
 
-const Router = ( {login, logout, signup, edit} ) => {
+const Router = ( {login, logout, signup, edit, apply} ) => {
+    
     return (
     <> 
     <Routes>
@@ -22,10 +23,10 @@ const Router = ( {login, logout, signup, edit} ) => {
         <Route path='/companies' element={<CompaniesList />}></Route>
 
         {/* /companies/apple : View details of this company */}
-        <Route path='/companies/:handle' element={<Company />}></Route>
+        <Route path='/companies/:handle' element={<Company apply={apply}/>}></Route>
 
         {/* /jobs : List all jobs */}
-        <Route path='/jobs' element={<JobsList />}></Route>
+        <Route path='/jobs' element={<JobsList apply={apply}/>}></Route>
 
         {/* /login : Login/signup */}
         <Route path='/login' element={<Login login={login}/>}></Route>
