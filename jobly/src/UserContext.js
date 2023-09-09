@@ -15,8 +15,6 @@ export function UserProvider( {children} ) {
   const [token, setToken] = useState(localStorage.getItem('token') || null);
   const [loading, setLoading] = useState(true); 
 
-  console.log('inside context', currentUser)
-
   useEffect(() => {
     if (token) {
       const decodedToken = jwtDecode(token);
