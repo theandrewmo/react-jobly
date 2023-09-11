@@ -1,6 +1,7 @@
 import React from "react"
 import { useUserContext } from "../UserContext"
 import JoblyApi from "../api";
+import { Table } from "reactstrap";
 
 /** Job
  * 
@@ -30,13 +31,19 @@ const Job = ( {job, apply} ) => {
 
     return (
         <>
-        <p>{job.title} --- {job.companyName} --- $ {job.salary} 
-            <button 
-                onClick={()=> handleApplyClick(job.id)} 
-                disabled={currentUser.applications.includes(job.id) ? true : false}
-            >
-                Apply
-            </button></p>
+            <tr>
+                <td>{job.title}</td>
+                <td>{job.companyName}</td>
+                <td>{job.salary ? `$${job.salary}` : "not provided"}</td>
+                <td>
+                    <button
+                    onClick={() => handleApplyClick(job.id)}
+                    disabled={currentUser.applications.includes(job.id) ? true : false}
+                    >
+                    Apply
+                    </button>
+                </td>
+            </tr>
         </>
     )
 }

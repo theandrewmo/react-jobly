@@ -27,7 +27,7 @@ describe('Router component', () => {
       </UserProvider>
     );
 
-    const welcomeMessage = screen.getByText('This is the Homepage');
+    const welcomeMessage = screen.getByText(/Welcome/);
     expect(welcomeMessage).toBeInTheDocument();
   });
 

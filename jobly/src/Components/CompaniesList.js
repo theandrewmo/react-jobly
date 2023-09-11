@@ -3,6 +3,7 @@ import JoblyApi from '../api';
 import { Link } from "react-router-dom";
 import { useUserContext } from "../UserContext";
 import { useNavigate } from "react-router";
+import { Table, Container } from "reactstrap";
 
 /** CompaniesList
  * 
@@ -60,15 +61,34 @@ const CompaniesList = () => {
     )
 
     return (
-        <>
-        <form onSubmit={handleSubmit}>
-            <label htmlFor="company">Search for Company:</label>
-            <input type='text' name='company' onChange={handleChange} value={inputData}></input>
-            <button>Submit</button>
-        </form>
-        <h1> Companies List </h1>
-        {companies.map(company => (<Link key={company.handle} to={`/companies/${company.handle}`}><p>{company.name}</p></Link>))}
-        </>
+        <Container>
+            <form onSubmit={handleSubmit}>
+                <label htmlFor="company">Search for Company:</label>
+                <input type='text' name='company' onChange={handleChange} value={inputData}></input>
+                <button>Submit</button>
+            </form>
+            <h1> Companies List </h1>
+            <div style={{ maxHeight: "600px", overflowY: "scroll" }}>
+                <Table responsive>
+                    <thead>
+                        <tr>
+                            <th>Company Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {companies.map(company => (
+                            <tr key={company.handle}>
+                                <td>
+                                    <Link to={`/companies/${company.handle}`}>
+                                        {company.name}
+                                    </Link>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
+            </div>
+        </Container>
     )
 }
 

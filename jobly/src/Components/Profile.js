@@ -36,7 +36,6 @@ const Profile = () => {
       <p>{currentUser.firstName}</p>
       <p>{currentUser.lastName}</p>
       <p>{currentUser.email}</p>
-      <p>Applications: [ {currentUser.applications.map(app => (<span key={app}>{`${app} `}</span>))} ]</p>
       <button onClick={()=> navigate('/profile/edit')}>Edit</button>
     </>
   )    

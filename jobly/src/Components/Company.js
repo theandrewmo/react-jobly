@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import JoblyApi from "../api";
 import Job from "./Job";
+import { Table } from "reactstrap";
 
 const Company = ( {apply} ) => {
 
@@ -32,12 +33,31 @@ const Company = ( {apply} ) => {
 
   return (
     <>
-      <h1>Company</h1>
+      {/* <h1>Company</h1>
       <h3>{company.name}</h3>
       {company.jobs?.map((job) => (
         <Job key={job.id} job={job} apply={apply}/>
-      ))}
+      ))} */}
+
+<h1>Company</h1>
+<h3>{company.name}</h3>
+<Table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th></th>
+      <th>Salary (USD)</th>
+      <th>Apply</th>
+    </tr>
+  </thead>
+  <tbody>
+    {company.jobs?.map((job) => (
+                <Job key={job.id} job={job} apply={apply}/>
+    ))}
+  </tbody>
+</Table>
     </>
+    
   );
 };
 

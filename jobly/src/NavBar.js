@@ -10,7 +10,7 @@ const NavBar = () => {
 
     return (
         <>
-            <Navbar expand='md'>
+            <Navbar expand='md' color='light'>
                 <NavLink to='/' className='navbar-brand'>
                     Jobly
                 </NavLink>
@@ -18,25 +18,25 @@ const NavBar = () => {
                 {!currentUser ? (
                     <>
                         <NavItem>
-                            <NavLink to='/login'>Login</NavLink>
+                            <NavLink to='/login' className='nav-link'>Login</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink to='/signup'>Signup</NavLink>
+                            <NavLink to='/signup' className='nav-link'>Signup</NavLink>
                         </NavItem>
                     </>    
                 ) : (
                     <>
                     <NavItem>
-                        <NavLink to='/companies'>Companies</NavLink>
+                        <NavLink to='/companies' className='nav-link'>Companies</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink to='/jobs'>Jobs</NavLink>
+                        <NavLink to='/jobs' className='nav-link'>Jobs</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink to='/profile'>Profile</NavLink>
+                        <NavLink to='/profile' className='nav-link'>Profile</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink to='/logout'>Logout</NavLink>
+                        <NavLink to='/logout' className='nav-link'>Logout</NavLink>
                     </NavItem>
                     </>
                 )}
